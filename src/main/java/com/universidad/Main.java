@@ -43,7 +43,7 @@ public class Main {
                         switch (opcion2){
                             case 1:
                                 System.out.println("1. Registrando Empleado");
-                                empleado1.registrarUsuario();
+                                empleado1.capturarDatos();
                                 break;
                             case 2:
                                 System.out.println("2. Listando Empleado");
