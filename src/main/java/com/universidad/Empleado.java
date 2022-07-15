@@ -3,6 +3,7 @@ package com.universidad;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Empleado extends Usuario {
@@ -58,60 +59,67 @@ public class Empleado extends Usuario {
     private List<Empleado> empleadosList = new ArrayList<>();
 
     public void capturarDatos() {
+        int id;
+        int listSize = empleadosList.size();
         String nombre;
         String apellido;
         String sexo;
         String fechaNacimiento;
+        double salario;
+        String rol;
+        String status;
+        String cuentaBancaria;
+        String profesion;
+        String[] sexo1= {"FEM", "MAS"};
+        String[] rolEmpleado = {"Maestro", "Administrativo"};
+        String[] estadoUsuario = {"Activo", "Inactivo", "Suspendido"};
 
-        int listSize = empleadosList.size();
-        System.out.println("Cantidad de empleados a registrar");
-        listSize = entrada.nextInt();
+
+        listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
+                "Cantidad de empleados a registrar", "Registro de empleado", JOptionPane.PLAIN_MESSAGE));
         for (int i = 0; i < listSize; i++) {
-            System.out.println(i + 1);
-            System.out.println("ID asignado");
-            int id = (int) (Math.random() * 10000);
-            System.out.println(id);
-            entrada.nextLine();
+            id = (i+1);
 
             do {//VALIDACION DE PARAMETRO NOMBRE
-                System.out.println("Nombre del empleado");
-                nombre = entrada.nextLine();
+                nombre = JOptionPane.showInputDialog(null, "Nombre del emplado");
             } while (!(nombre.matches("^([a-zA-Z_]+[ ]?){1,2}$")));
 
             do {//VALIDACION DE PARAMETRO APELLIDO
-                System.out.println("Apellido del empleado");
-                apellido = entrada.nextLine();
+                apellido = JOptionPane.showInputDialog(null,"Apellido del empleado");
             } while (!(apellido.matches("^([a-zA-Z_]+[ ]?){1,2}$")));
 
             do {//VALIDACION DE PARAMETRO SEXO
-                System.out.println("Ingresar sexo del empleado(FEM o MAS)");
-                sexo = entrada.nextLine();
-                System.out.println(sexo);
+                sexo = (String) JOptionPane.showInputDialog(null,
+                        "Ingresar sexo del empleado(FEM o MAS)", "FEM O MAS",
+                        JOptionPane.DEFAULT_OPTION,null,sexo1,sexo1[0]);
             } while (!((sexo.compareTo("FEM") == 0) || (sexo.compareTo("MAS") == 0)));
 
             do {//VALIDACION PARAMETRO FECHA
-                System.out.println("Fecha de nacimiento (DD-MM-YYY)");
-                fechaNacimiento = entrada.nextLine();
+                fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
             } while (!(fechaNacimiento.matches("^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")));
 
-            System.out.println("Status del empleado");
-            String status = entrada.nextLine();
-            System.out.println("Salario del empleado");
-            double salario = entrada.nextDouble();
-            entrada.nextLine();
-            System.out.println("Rol del empleado");
-            String rol = entrada.nextLine();
-            System.out.println("Cuenta Bancaria del empleado");
-            String cuentaBancaria = entrada.nextLine();
-            System.out.println("Profesion del empleado");
-            String profesion = entrada.nextLine();
-            entrada.nextLine();
+            status = (String) JOptionPane.showInputDialog(null,"Status del empleado",
+                    "Status del empleado", JOptionPane.DEFAULT_OPTION,null,estadoUsuario,estadoUsuario[0]);//entrada.nextLine();
 
-            registrarUsuario(id, nombre, apellido, sexo, fechaNacimiento, status, salario, rol, cuentaBancaria, profesion);
+            salario = Double.parseDouble(JOptionPane.showInputDialog(null,"Ingrese el salario del empleado",
+                    "Salario de empleado",JOptionPane.PLAIN_MESSAGE));
+
+            rol = (String) JOptionPane.showInputDialog(null,"Seleccione el rol del empleado",
+                    "Rol del empleado", JOptionPane.DEFAULT_OPTION,null,rolEmpleado, rolEmpleado[0]);
+
+            cuentaBancaria = JOptionPane.showInputDialog(null,"Ingrese el número de cuenta del empleado"
+            ,"Numero de cuenta",JOptionPane.PLAIN_MESSAGE);
+
+            profesion = JOptionPane.showInputDialog(null,"Ingrese la profesion del empleado"
+            ,"Profesión empleado",JOptionPane.PLAIN_MESSAGE);
+
+            registrarUsuario(id, nombre, apellido, sexo, fechaNacimiento, status, salario, rol,
+                    cuentaBancaria, profesion);
         }
     }
 
-    public List<Empleado> registrarUsuario(int id, String nombre, String apellido, String sexo, String fechaNacimiento, String status, double salario, String rol, String cuentaBancaria, String profesion) {
+    public List<Empleado> registrarUsuario(int id, String nombre, String apellido, String sexo, String fechaNacimiento,
+                                           String status, double salario, String rol, String cuentaBancaria, String profesion) {
 
         Empleado empleadoNuevo = new Empleado(id, nombre, apellido, sexo, fechaNacimiento, status, salario, rol,
                 cuentaBancaria, profesion);

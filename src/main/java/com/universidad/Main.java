@@ -1,4 +1,5 @@
 package com.universidad;
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -19,103 +20,79 @@ public class Main {
         PagoCuota pago1 = new PagoCuota();
 
         while(!salir){
-
-            System.out.println("*****************************************");
-            System.out.println("Seleccione una de las siguientes opciones");
-            System.out.println("1. Registrar/Listar/Eliminar Empleado");
-            System.out.println("2. Registrar/Listar/Eliminar/Pagar Estudiante");
-            System.out.println("3. Listar Maestros");
-            System.out.println("4. Generar reporte por materia");
-            System.out.println("5. Registrar alumnos por materia y notas");
-            System.out.println("6. Listar alumnos por materia y notas");
-            System.out.println("7. Salir");
+            opcion1 = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Seleccione una de las siguientes opciones\n\n"
+                            +"1. Registrar/Listar/Eliminar Empleado\n"
+                            +"2. Registrar/Listar/Eliminar/Pagar Estudiante\n"
+                            +"3. Listar Maestros\n"
+                            +"4. Generar reporte por materia\n"
+                            +"5. Registrar alumnos por materia y notas\n"
+                            +"6. Listar alumnos por materia y notas\n"
+                            +"7. Salir\n", "Menú Principal", JOptionPane.PLAIN_MESSAGE));
             try{
-                opcion1 = Integer.parseInt(entrada.next());
-                if (opcion1<1 || opcion1>7){
-                    System.out.println("Opcion invalida");
-                }
-                switch (opcion1){
-                    case 1:
-                        System.out.println("1. Registrar Empleado");
-                        System.out.println("2. Listar Empleado");
-                        System.out.println("3. Eliminar Empleado");
-                        opcion2 = entrada.nextInt();
-                        switch (opcion2){
-                            case 1:
-                                System.out.println("1. Registrando Empleado");
-                                empleado1.capturarDatos();
-                                break;
-                            case 2:
-                                System.out.println("2. Listando Empleado");
-                                empleado1.listarUsuario();
-                                break;
-                            case 3:
-                                System.out.println("3. Eliminando Empleado");
-                                empleado1.eliminarUsuario();
-                                break;
+                switch (opcion1) {
+                    case 1 -> {
+                        opcion2 = Integer.parseInt(JOptionPane.showInputDialog(null,
+                                "1. Registrar Empleado\n"
+                                        + "2. Listar Empleado\n"
+                                        + "3. Eliminar Empleado\n",
+                                "Menú empleados", JOptionPane.PLAIN_MESSAGE));
+                        switch (opcion2) {
+                            case 1 -> empleado1.capturarDatos();
+                            case 2 -> empleado1.listarUsuario();
+                            case 3 -> empleado1.eliminarUsuario();
                         }
-                        break;
-                    case 2:
-                        System.out.println("1. Registrar Estudiante");
-                        System.out.println("2. Listar Estudiante");
-                        System.out.println("3. Eliminar Estudiante");
-                        System.out.println("4. Procesar Pago de Cuota");
-                        opcion3 = entrada.nextInt();
-                        switch (opcion3){
-                            case 1:
-                                System.out.println("1. Registrando Estudiante");
-                                estudiante1.registrarUsuario();
-
-                                break;
-                            case 2:
-                                System.out.println("2. Listando Estudiante");
+                    }
+                    case 2 -> {
+                        opcion3 = Integer.parseInt(JOptionPane.showInputDialog(null,
+                                "1. Registrar Estudiante\n"
+                                        +"2. Listar Estudiante\n"
+                                        +"3. Eliminar Estudiante\n"
+                                        +"4. Procesar Pago de Cuota\n","Menú Estudiantes",
+                                JOptionPane.PLAIN_MESSAGE));
+                        switch (opcion3) {
+                            case 1 -> estudiante1.registrarUsuario();
+                            case 2 -> {
                                 ArrayList<Estudiante> estudiantes = BdEstudiantes.listarEstudiantes();
-                                for(Estudiante estudiante : estudiantes){
+                                for (Estudiante estudiante : estudiantes) {
                                     System.out.println(estudiante.toString());
                                 }
-                                break;
-                            case 3:
-                                System.out.println("3. Eliminando Estudiante");
-                                estudiante1.eliminarUsuario();
-                                break;
-                            case 4:
-                                System.out.println("4. Pago de Estudiante");
-                                pago1.gestionarPagos();
-                                break;
+                            }
+                            case 3 -> estudiante1.eliminarUsuario();
+                            case 4 -> pago1.gestionarPagos();
                         }
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         System.out.println("Lista de Maestros");
                         Maestro maestro = new Maestro();
                         maestro.identificarmaestros();
                         boolean check = empleado1.getEmpleadosList().isEmpty();
-                        if(check == false){
-                            for(int j = 0; j < empleado1.getEmpleadosList().size(); j++){
-                                if (empleado1.getEmpleadosList().get(j).rol.equals("MAESTRO")){
+                        if (check == false) {
+                            for (int j = 0; j < empleado1.getEmpleadosList().size(); j++) {
+                                if (empleado1.getEmpleadosList().get(j).rol.equals("MAESTRO")) {
                                     System.out.println(empleado1.getEmpleadosList().get(j));
                                 }
                             }
                         }
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         System.out.println("Generar reporte");
                         materia1.mostrarmaterias();
                         materia1.guardarEnviar();
-                        break;
-                    case 5:
+                    }
+                    case 5 -> {
                         System.out.println("Registrar notas de alumno");
                         notas1.registrarNotasAlumnos();
-                        break;
-                    case 6:
+                    }
+                    case 6 -> {
                         System.out.println("Listar alumnos por materia y notas");
                         notas1.listarNotasAlumnos();
-                        break;
-                    case 7:
+                    }
+                    case 7 -> {
                         System.out.println("Saliendo del sistema");
                         salir = true;
-                        break;
-                    default:
-                        System.out.println("Solo numeros entre 1 y 7");
+                    }
+                    default -> System.out.println("Solo numeros entre 1 y 7");
                 }
             }catch (InputMismatchException e){
                 System.out.println("Debe ingresar un numero");
