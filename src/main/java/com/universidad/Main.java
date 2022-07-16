@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -18,8 +19,10 @@ public class Main {
         Materia materia1 = new Materia();
         Notas notas1 = new Notas();
         PagoCuota pago1 = new PagoCuota();
+        Maestro maestro = new Maestro();
 
         while(!salir){
+            try{
             opcion1 = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Seleccione una de las siguientes opciones\n\n"
                             +"1. Registrar/Listar/Eliminar Empleado\n"
@@ -28,8 +31,8 @@ public class Main {
                             +"4. Generar reporte por materia\n"
                             +"5. Registrar alumnos por materia y notas\n"
                             +"6. Listar alumnos por materia y notas\n"
-                            +"7. Salir\n", "Menú Principal", JOptionPane.PLAIN_MESSAGE));
-            try{
+                            +"7. Salir\n\n", "Menú Principal", JOptionPane.PLAIN_MESSAGE));
+
                 switch (opcion1) {
                     case 1 -> {
                         opcion2 = Integer.parseInt(JOptionPane.showInputDialog(null,
@@ -53,9 +56,11 @@ public class Main {
                         switch (opcion3) {
                             case 1 -> estudiante1.registrarUsuario();
                             case 2 -> {
+                                estudiante1.listarUsuario();
                                 ArrayList<Estudiante> estudiantes = BdEstudiantes.listarEstudiantes();
                                 for (Estudiante estudiante : estudiantes) {
-                                    System.out.println(estudiante.toString());
+                                    JOptionPane.showMessageDialog(null,estudiante.toString(),
+                                            "Estudiantes registrados",JOptionPane.PLAIN_MESSAGE);
                                 }
                             }
                             case 3 -> estudiante1.eliminarUsuario();
@@ -64,7 +69,6 @@ public class Main {
                     }
                     case 3 -> {
                         System.out.println("Lista de Maestros");
-                        Maestro maestro = new Maestro();
                         maestro.identificarmaestros();
                         boolean check = empleado1.getEmpleadosList().isEmpty();
                         if (check == false) {
@@ -92,11 +96,10 @@ public class Main {
                         System.out.println("Saliendo del sistema");
                         salir = true;
                     }
-                    default -> System.out.println("Solo numeros entre 1 y 7");
+                    default -> JOptionPane.showMessageDialog(null,"Solo numeros entre 1 y 7");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("Debe ingresar un numero");
-                entrada.next();
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Debe ingresar un numero");
               }
         }
         }

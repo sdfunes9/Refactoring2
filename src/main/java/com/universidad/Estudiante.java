@@ -3,6 +3,7 @@ package com.universidad;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,56 +39,63 @@ public class Estudiante extends Usuario{
 
     @Setter @Getter
     private List<Estudiante> estudiantesList = new ArrayList<>();
-    Scanner entrada = new Scanner(System.in);
+   // BdEstudiantes bdEstudiantes = new BdEstudiantes();
 
     @Override
     public String registrarUsuario() {
+            int id;
             String nombre;
             String apellido;
             String sexo;
             String fechaNacimiento;
+            String status;
+            String carrera;
+            String idMateria;
+            int numeroCuotas;
+            int listSize = estudiantesList.size();
+            String[] sexo1= {"FEMENINO", "MASCULINO"};
+            String[] estadoUsuario = {"Activo", "Inactivo", "Suspendido"};
+            String[] carreras = {"Arquitectura","Contaduria Publica","Filosofia", "Astrologia"};
+            String[] nombreMateria = {"FIS1", "FIS2","FIS3", "PROG1", "QUIM1", "QUIM2", "QUIM3"};
+            String regexNombreApellido = "^([a-zA-Z_]+[ ]?){1,2}$";
+            String regexFechaNacimiento = "^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$";
 
 
-        int listSize = estudiantesList.size();
-        System.out.println("Cantidad de estudiantes a inscribir");
-            listSize = entrada.nextInt();
+        listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
+                "Cantidad de estudiantes a registrar", "Registro de estudiante", JOptionPane.PLAIN_MESSAGE));
         for (int i = 0; i < listSize; i++) {
-            System.out.println(i + 1);
-            System.out.println("ID asignado");
-            int id = (int) (Math.random() * 1000);
-            System.out.println(id);
-            entrada.nextLine();
+            id = (i + 1);
 
             do{//VALIDACION DE PARAMETRO NOMBRE
-                System.out.println("Nombre del estudiante");
-                nombre = entrada.nextLine();
-            }while(!(nombre.matches("^([a-zA-Z_]+[ ]?){1,2}$")));
+                nombre = JOptionPane.showInputDialog(null, "Nombre del estudiante");
+            }while(!nombre.matches(regexNombreApellido));
 
             do {//VALIDACION DE PARAMETRO APELLIDO
-                System.out.println("Apellido del estudiante");
-                apellido = entrada.nextLine();
-            }while(!(apellido.matches("^([a-zA-Z_]+[ ]?){1,2}$")));
+                apellido = JOptionPane.showInputDialog(null,"Apellido del estudiante");
+            }while(!apellido.matches(regexNombreApellido));
 
             do {//VALIDACION DE PARAMETRO SEXO
-                System.out.println("Ingresar sexo del alumno(FEM o MAS)");
-                sexo = entrada.nextLine();
-                System.out.println(sexo);
-            }while (!((sexo.compareTo("FEM")==0)||(sexo.compareTo("MAS")==0)));
+                sexo = (String) JOptionPane.showInputDialog(null,
+                        "Ingresar sexo del estudiante", "FEMENINO O MASCULINO",
+                        JOptionPane.DEFAULT_OPTION,null,sexo1,sexo1[0]);
+            }while (!((sexo.compareTo("FEMENINO")==0)||(sexo.compareTo("MASCULINO")==0)));
 
             do {//VALIDACION PARAMETRO FECHA
-                System.out.println("Fecha de nacimiento (DD-MM-YYY)");
-                fechaNacimiento = entrada.nextLine();
-            }while(!(fechaNacimiento.matches("^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")));
+                fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
+            }while(!fechaNacimiento.matches(regexFechaNacimiento));
 
-            System.out.println("Status del Alumno");
-            String status = entrada.nextLine();
-            System.out.println("Id Carrera");
-            String carrera = entrada.nextLine();
-            System.out.println("Id Materia");
-            String idMateria = entrada.nextLine();
-            System.out.println("Cuotas pagadas");
-            int numeroCuotas = entrada.nextInt();
-            entrada.nextLine();
+            status = (String) JOptionPane.showInputDialog(null,"Status del estudiante",
+                    "Status del estudiante", JOptionPane.DEFAULT_OPTION,null,estadoUsuario,estadoUsuario[0]);
+
+            carrera = (String) JOptionPane.showInputDialog(null,"Seleccione una carrera",
+                    "Carrera", JOptionPane.DEFAULT_OPTION,null,carreras,carreras[0]);
+
+            idMateria = (String) JOptionPane.showInputDialog(null,"Seleccione una materia",
+                    "Materia", JOptionPane.DEFAULT_OPTION,null,nombreMateria,nombreMateria[0]);
+
+            numeroCuotas = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Ingrese la cantidad de cuotas pagadas", "Cuotas pagadas", JOptionPane.PLAIN_MESSAGE));
+
             Estudiante estudianteNuevo = new Estudiante(id,nombre,apellido,sexo,fechaNacimiento,status,0.0,carrera,idMateria,new ArrayList<>(),numeroCuotas);
             estudiantesList.add(estudianteNuevo);
         }
@@ -95,11 +103,11 @@ public class Estudiante extends Usuario{
     }
     public ArrayList listarUsuario(){
         if (estudiantesList.size() == 0) {
-            System.out.println("Lista de estudiantes vacia");
+            JOptionPane.showMessageDialog(null,"Lista de estudiantes nuevos vacia");
         } else {
             for (int i = 0; i < estudiantesList.size(); i++) {
-                System.out.println(i + 1);
-                System.out.println(estudiantesList.get(i));
+                JOptionPane.showMessageDialog(null,estudiantesList.get(i),
+                        "Estudiante "+(i+1),JOptionPane.PLAIN_MESSAGE);
             }
         }
         return (ArrayList) estudiantesList;
@@ -107,34 +115,34 @@ public class Estudiante extends Usuario{
 
     @Override
     public void eliminarUsuario() {
+        int indice;
         if (estudiantesList.size() == 0) {
-            System.out.println("Lista vacia, imposible eliminar estudiante");
+            JOptionPane.showMessageDialog(null,"Lista vacia, imposible eliminar estudiante");
         } else {
-            System.out.println("Indique el indice del estudiante a eliminar");
-            int indice = entrada.nextInt();
+            indice =Integer.parseInt(JOptionPane.showInputDialog(null,"Indique el ID del estudiante a eliminar"));
             estudiantesList.remove(indice - 1);
             Iterator iterador = estudiantesList.iterator();
             while (iterador.hasNext()) {
-                System.out.println(iterador.next());
+                JOptionPane.showMessageDialog(null,iterador.next());
             }
         }
     }
 
+
     @Override
     public String toString() {
-        return "Estudiante{" +
-                ", idUsuario=" + idUsuario +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", sexo='" + sexo + '\'' +
-                ", fechaNacimiento='" + fechaNacimiento + '\'' +
-                ", statusUsuario='" + statusUsuario + '\'' +
-                ", promedio=" + promedio +
-                ", idCarrera='" + idCarrera + '\'' +
-                ", idMateria='" + idMateria + '\'' +
-                ", materiasList=" + materiasList +
-                ", pagosProcesados=" + pagosProcesados+
-                '}';
+        return "Estudiante:" +'\n' +
+                " ID Usuario: 00" + idUsuario + '\n' +
+                " Nombre: '" + nombre + '\n' +
+                " Apellido: '" + apellido + '\n' +
+                " Sexo: '" + sexo + '\n' +
+                " Fecha de Nacimiento: '" + fechaNacimiento + '\n' +
+                " Status Usuario: '" + statusUsuario + '\n' +
+                " Promedio: " + promedio + '\n' +
+                " ID Carrera: '" + idCarrera + '\n' +
+                " ID Materia: '" + idMateria + '\n' +
+                " Materias List: " + materiasList + '\n' +
+                " Pagos Procesados: " + pagosProcesados +'\n';
     }
 }
 

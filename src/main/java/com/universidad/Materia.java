@@ -57,13 +57,12 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" +
-                "idMateria='" + idMateria + '\'' +
-                ", nombreMateria='" + nombreMateria + '\'' +
-                ", horario='" + horario + '\'' +
-                ", fechaInicio='" + fechaInicio + '\'' +
-                ", fechaFin='" + fechaFin + '\'' +
-                '}';
+        return " Materia: " +'\n' +
+                " idMateria: " + idMateria + '\n' +
+                " nombreMateria: " + nombreMateria + '\n' +
+                " horario: " + horario + '\n' +
+                " fechaInicio: " + fechaInicio + '\n' +
+                " fechaFin: " + fechaFin + '\n';
     }
 
     String dest;

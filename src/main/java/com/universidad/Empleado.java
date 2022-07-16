@@ -38,21 +38,20 @@ public class Empleado extends Usuario {
 
     @Override
     public String toString() {
-        return "Empleado{" + '\n' +
-                "ID Usuario= " + idUsuario + '\n' +
-                "nombre= " + nombre + '\n' +
-                "apellido= " + apellido + '\n' +
-                "sexo= " + sexo + '\n' +
-                "Fecha de nacimiento= " + fechaNacimiento + '\n' +
-                "Status= " + statusUsuario + '\n' +
-                "salario= " + salario + '\n' +
-                "rol= " + rol + '\n' +
-                "cuenta Bancaria= " + cuentaBancaria + '\n' +
-                "Profesion= " + profesion + '\n' +
-                '}';
+        return "Empleado:" + '\n' +
+                "ID Usuario: 00" + idUsuario + '\n' +
+                "Nombre: " + nombre + '\n' +
+                "Apellido: " + apellido + '\n' +
+                "Sexo: " + sexo + '\n' +
+                "Fecha de nacimiento: " + fechaNacimiento + '\n' +
+                "Status: " + statusUsuario + '\n' +
+                "salario: " + salario + '\n' +
+                "Rol: " + rol + '\n' +
+                "Cuenta Bancaria: " + cuentaBancaria + '\n' +
+                "Profesion: " + profesion + '\n';
     }
 
-    Scanner entrada = new Scanner(System.in);
+    //Scanner entrada = new Scanner(System.in);
 
     @Setter
     @Getter
@@ -70,9 +69,12 @@ public class Empleado extends Usuario {
         String status;
         String cuentaBancaria;
         String profesion;
-        String[] sexo1= {"FEM", "MAS"};
+        String[] sexo1= {"FEMENINO", "MASCULINO"};
         String[] rolEmpleado = {"Maestro", "Administrativo"};
         String[] estadoUsuario = {"Activo", "Inactivo", "Suspendido"};
+        String regexNombreApellido = "^([a-zA-Z_]+[ ]?){1,2}$";
+        String regexFechaNacimiento = "^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$";
+
 
 
         listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
@@ -82,21 +84,21 @@ public class Empleado extends Usuario {
 
             do {//VALIDACION DE PARAMETRO NOMBRE
                 nombre = JOptionPane.showInputDialog(null, "Nombre del emplado");
-            } while (!(nombre.matches("^([a-zA-Z_]+[ ]?){1,2}$")));
+            } while (!nombre.matches(regexNombreApellido));
 
             do {//VALIDACION DE PARAMETRO APELLIDO
                 apellido = JOptionPane.showInputDialog(null,"Apellido del empleado");
-            } while (!(apellido.matches("^([a-zA-Z_]+[ ]?){1,2}$")));
+            } while (!apellido.matches(regexNombreApellido));
 
             do {//VALIDACION DE PARAMETRO SEXO
                 sexo = (String) JOptionPane.showInputDialog(null,
-                        "Ingresar sexo del empleado(FEM o MAS)", "FEM O MAS",
+                        "Ingresar sexo del empleado", "FEMENINO O MASCULINO",
                         JOptionPane.DEFAULT_OPTION,null,sexo1,sexo1[0]);
-            } while (!((sexo.compareTo("FEM") == 0) || (sexo.compareTo("MAS") == 0)));
+            } while (!((sexo.compareTo("FEMENINO") == 0) || (sexo.compareTo("MASCULINO") == 0)));
 
             do {//VALIDACION PARAMETRO FECHA
                 fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
-            } while (!(fechaNacimiento.matches("^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")));
+            } while (!fechaNacimiento.matches(regexFechaNacimiento));
 
             status = (String) JOptionPane.showInputDialog(null,"Status del empleado",
                     "Status del empleado", JOptionPane.DEFAULT_OPTION,null,estadoUsuario,estadoUsuario[0]);//entrada.nextLine();
@@ -125,20 +127,17 @@ public class Empleado extends Usuario {
                 cuentaBancaria, profesion);
         empleadosList.add(empleadoNuevo);
         System.out.println("Se registro correctamente");
-
         return empleadosList;
-
 }
 
     @Override
     public ArrayList listarUsuario() {
-
         if (empleadosList.size() == 0) {
-            System.out.println("Lista de empleados vacia");
+            JOptionPane.showMessageDialog(null,"Lista de empleados vacia");
         } else {
             for (int i = 0; i < empleadosList.size(); i++) {
-                System.out.println(i + 1);
-                System.out.println(empleadosList.get(i));
+                JOptionPane.showMessageDialog(null,empleadosList.get(i),
+                        "Empleado "+(i+1),JOptionPane.PLAIN_MESSAGE);
             }
         }
         return (ArrayList) empleadosList;
@@ -146,15 +145,15 @@ public class Empleado extends Usuario {
 
     @Override
     public void eliminarUsuario() {
+        int indice;
         if (empleadosList.size() == 0) {
-            System.out.println("Lista vacia, imposible eliminar empleado");
+            JOptionPane.showMessageDialog(null,"Lista vacia, imposible eliminar empleado");
         } else {
-            System.out.println("Indique el indice del empleado a eliminar");
-            int indice = entrada.nextInt();
+            indice =Integer.parseInt(JOptionPane.showInputDialog(null,"Indique el ID del empleado a eliminar"));
             empleadosList.remove(indice - 1);
             Iterator iterador = empleadosList.iterator();
             while (iterador.hasNext()) {
-                System.out.println(iterador.next());
+                JOptionPane.showMessageDialog(null,iterador.next());
             }
         }
 
