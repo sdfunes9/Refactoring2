@@ -83,20 +83,18 @@ public class Main {
                         }
                     }
                     case 3 -> {
-                        System.out.println("Lista de Maestros");
                         maestro.identificarmaestros();
                         boolean check = empleado1.getEmpleadosList().isEmpty();
-                        if (!check) {
+                        if (check == false) {
                             for (int j = 0; j < empleado1.getEmpleadosList().size(); j++) {
-                                if (empleado1.getEmpleadosList().get(j).rol.equals("MAESTRO")) {
-                                    System.out.println(empleado1.getEmpleadosList().get(j));
+                                if (empleado1.getEmpleadosList().get(j).rol.equals("Maestro")) {
+                                    JOptionPane.showMessageDialog(null, empleado1.getEmpleadosList().get(j),
+                                            "Maestro" + (j + 1), JOptionPane.PLAIN_MESSAGE);
                                 }
                             }
                         }
                     }
                     case 4 -> {
-                        System.out.println("Generar reporte");
-                        materia1.mostrarmaterias();
                         materia1.guardarEnviar();
                     }
                     case 5 -> {
@@ -108,7 +106,7 @@ public class Main {
                         notas1.listarNotasAlumnos();
                     }
                     case 7 -> {
-                        System.out.println("Saliendo del sistema");
+                        JOptionPane.showMessageDialog(null,"Saliendo del sistema","Saliendo",JOptionPane.PLAIN_MESSAGE);
                         salir = true;
                     }
                     default -> JOptionPane.showMessageDialog(null, "Solo numeros entre 1 y 7");
