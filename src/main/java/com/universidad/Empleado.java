@@ -76,47 +76,50 @@ public class Empleado extends Usuario {
         String regexFechaNacimiento = "^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$";
 
 
+        try {
+            listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Cantidad de empleados a registrar", "Registro de empleado", JOptionPane.PLAIN_MESSAGE));
+            for (int i = 0; i < listSize; i++) {
+                id = (i + 1);
 
-        listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
-                "Cantidad de empleados a registrar", "Registro de empleado", JOptionPane.PLAIN_MESSAGE));
-        for (int i = 0; i < listSize; i++) {
-            id = (i+1);
+                do {//VALIDACION DE PARAMETRO NOMBRE
+                    nombre = JOptionPane.showInputDialog(null, "Nombre del emplado");
+                } while (!nombre.matches(regexNombreApellido));
 
-            do {//VALIDACION DE PARAMETRO NOMBRE
-                nombre = JOptionPane.showInputDialog(null, "Nombre del emplado");
-            } while (!nombre.matches(regexNombreApellido));
+                do {//VALIDACION DE PARAMETRO APELLIDO
+                    apellido = JOptionPane.showInputDialog(null, "Apellido del empleado");
+                } while (!apellido.matches(regexNombreApellido));
 
-            do {//VALIDACION DE PARAMETRO APELLIDO
-                apellido = JOptionPane.showInputDialog(null,"Apellido del empleado");
-            } while (!apellido.matches(regexNombreApellido));
+                do {//VALIDACION DE PARAMETRO SEXO
+                    sexo = (String) JOptionPane.showInputDialog(null,
+                            "Ingresar sexo del empleado", "FEMENINO O MASCULINO",
+                            JOptionPane.DEFAULT_OPTION, null, sexo1, sexo1[0]);
+                } while (!((sexo.compareTo("FEMENINO") == 0) || (sexo.compareTo("MASCULINO") == 0)));
 
-            do {//VALIDACION DE PARAMETRO SEXO
-                sexo = (String) JOptionPane.showInputDialog(null,
-                        "Ingresar sexo del empleado", "FEMENINO O MASCULINO",
-                        JOptionPane.DEFAULT_OPTION,null,sexo1,sexo1[0]);
-            } while (!((sexo.compareTo("FEMENINO") == 0) || (sexo.compareTo("MASCULINO") == 0)));
+                do {//VALIDACION PARAMETRO FECHA
+                    fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
+                } while (!fechaNacimiento.matches(regexFechaNacimiento));
 
-            do {//VALIDACION PARAMETRO FECHA
-                fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
-            } while (!fechaNacimiento.matches(regexFechaNacimiento));
+                status = (String) JOptionPane.showInputDialog(null, "Status del empleado",
+                        "Status del empleado", JOptionPane.DEFAULT_OPTION, null, estadoUsuario, estadoUsuario[0]);//entrada.nextLine();
 
-            status = (String) JOptionPane.showInputDialog(null,"Status del empleado",
-                    "Status del empleado", JOptionPane.DEFAULT_OPTION,null,estadoUsuario,estadoUsuario[0]);//entrada.nextLine();
+                salario = Double.parseDouble(JOptionPane.showInputDialog(null, "Ingrese el salario del empleado",
+                        "Salario de empleado", JOptionPane.PLAIN_MESSAGE));
 
-            salario = Double.parseDouble(JOptionPane.showInputDialog(null,"Ingrese el salario del empleado",
-                    "Salario de empleado",JOptionPane.PLAIN_MESSAGE));
+                rol = (String) JOptionPane.showInputDialog(null, "Seleccione el rol del empleado",
+                        "Rol del empleado", JOptionPane.DEFAULT_OPTION, null, rolEmpleado, rolEmpleado[0]);
 
-            rol = (String) JOptionPane.showInputDialog(null,"Seleccione el rol del empleado",
-                    "Rol del empleado", JOptionPane.DEFAULT_OPTION,null,rolEmpleado, rolEmpleado[0]);
+                cuentaBancaria = JOptionPane.showInputDialog(null, "Ingrese el número de cuenta del empleado"
+                        , "Numero de cuenta", JOptionPane.PLAIN_MESSAGE);
 
-            cuentaBancaria = JOptionPane.showInputDialog(null,"Ingrese el número de cuenta del empleado"
-            ,"Numero de cuenta",JOptionPane.PLAIN_MESSAGE);
+                profesion = JOptionPane.showInputDialog(null, "Ingrese la profesion del empleado"
+                        , "Profesión empleado", JOptionPane.PLAIN_MESSAGE);
 
-            profesion = JOptionPane.showInputDialog(null,"Ingrese la profesion del empleado"
-            ,"Profesión empleado",JOptionPane.PLAIN_MESSAGE);
-
-            registrarUsuario(id, nombre, apellido, sexo, fechaNacimiento, status, salario, rol,
-                    cuentaBancaria, profesion);
+                registrarUsuario(id, nombre, apellido, sexo, fechaNacimiento, status, salario, rol,
+                        cuentaBancaria, profesion);
+            }
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Ingrese la informacion requerida");
         }
     }
 

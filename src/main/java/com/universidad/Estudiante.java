@@ -60,44 +60,47 @@ public class Estudiante extends Usuario{
             String regexNombreApellido = "^([a-zA-Z_]+[ ]?){1,2}$";
             String regexFechaNacimiento = "^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$";
 
+        try {
+            listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Cantidad de estudiantes a registrar", "Registro de estudiante", JOptionPane.PLAIN_MESSAGE));
+            for (int i = 0; i < listSize; i++) {
+                id = (i + 1);
 
-        listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
-                "Cantidad de estudiantes a registrar", "Registro de estudiante", JOptionPane.PLAIN_MESSAGE));
-        for (int i = 0; i < listSize; i++) {
-            id = (i + 1);
+                do {//VALIDACION DE PARAMETRO NOMBRE
+                    nombre = JOptionPane.showInputDialog(null, "Nombre del estudiante");
+                } while (!nombre.matches(regexNombreApellido));
 
-            do{//VALIDACION DE PARAMETRO NOMBRE
-                nombre = JOptionPane.showInputDialog(null, "Nombre del estudiante");
-            }while(!nombre.matches(regexNombreApellido));
+                do {//VALIDACION DE PARAMETRO APELLIDO
+                    apellido = JOptionPane.showInputDialog(null, "Apellido del estudiante");
+                } while (!apellido.matches(regexNombreApellido));
 
-            do {//VALIDACION DE PARAMETRO APELLIDO
-                apellido = JOptionPane.showInputDialog(null,"Apellido del estudiante");
-            }while(!apellido.matches(regexNombreApellido));
+                do {//VALIDACION DE PARAMETRO SEXO
+                    sexo = (String) JOptionPane.showInputDialog(null,
+                            "Ingresar sexo del estudiante", "FEMENINO O MASCULINO",
+                            JOptionPane.DEFAULT_OPTION, null, sexo1, sexo1[0]);
+                } while (!((sexo.compareTo("FEMENINO") == 0) || (sexo.compareTo("MASCULINO") == 0)));
 
-            do {//VALIDACION DE PARAMETRO SEXO
-                sexo = (String) JOptionPane.showInputDialog(null,
-                        "Ingresar sexo del estudiante", "FEMENINO O MASCULINO",
-                        JOptionPane.DEFAULT_OPTION,null,sexo1,sexo1[0]);
-            }while (!((sexo.compareTo("FEMENINO")==0)||(sexo.compareTo("MASCULINO")==0)));
+                do {//VALIDACION PARAMETRO FECHA
+                    fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
+                } while (!fechaNacimiento.matches(regexFechaNacimiento));
 
-            do {//VALIDACION PARAMETRO FECHA
-                fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
-            }while(!fechaNacimiento.matches(regexFechaNacimiento));
+                status = (String) JOptionPane.showInputDialog(null, "Status del estudiante",
+                        "Status del estudiante", JOptionPane.DEFAULT_OPTION, null, estadoUsuario, estadoUsuario[0]);
 
-            status = (String) JOptionPane.showInputDialog(null,"Status del estudiante",
-                    "Status del estudiante", JOptionPane.DEFAULT_OPTION,null,estadoUsuario,estadoUsuario[0]);
+                carrera = (String) JOptionPane.showInputDialog(null, "Seleccione una carrera",
+                        "Carrera", JOptionPane.DEFAULT_OPTION, null, carreras, carreras[0]);
 
-            carrera = (String) JOptionPane.showInputDialog(null,"Seleccione una carrera",
-                    "Carrera", JOptionPane.DEFAULT_OPTION,null,carreras,carreras[0]);
+                idMateria = (String) JOptionPane.showInputDialog(null, "Seleccione una materia",
+                        "Materia", JOptionPane.DEFAULT_OPTION, null, nombreMateria, nombreMateria[0]);
 
-            idMateria = (String) JOptionPane.showInputDialog(null,"Seleccione una materia",
-                    "Materia", JOptionPane.DEFAULT_OPTION,null,nombreMateria,nombreMateria[0]);
+                numeroCuotas = Integer.parseInt(JOptionPane.showInputDialog(null,
+                        "Ingrese la cantidad de cuotas pagadas", "Cuotas pagadas", JOptionPane.PLAIN_MESSAGE));
 
-            numeroCuotas = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Ingrese la cantidad de cuotas pagadas", "Cuotas pagadas", JOptionPane.PLAIN_MESSAGE));
-
-            Estudiante estudianteNuevo = new Estudiante(id,nombre,apellido,sexo,fechaNacimiento,status,0.0,carrera,idMateria,new ArrayList<>(),numeroCuotas);
-            estudiantesList.add(estudianteNuevo);
+                Estudiante estudianteNuevo = new Estudiante(id, nombre, apellido, sexo, fechaNacimiento, status, 0.0, carrera, idMateria, new ArrayList<>(), numeroCuotas);
+                estudiantesList.add(estudianteNuevo);
+            }
+        }catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Ingrese la informacion requerida");
         }
         return "registro exitoso";
     }
