@@ -32,7 +32,6 @@ public class Main {
                             +"5. Registrar alumnos por materia y notas\n"
                             +"6. Listar alumnos por materia y notas\n"
                             +"7. Salir\n\n", "Menú Principal", JOptionPane.PLAIN_MESSAGE));
-
                 switch (opcion1) {
                     case 1 -> {
                         opcion2 = Integer.parseInt(JOptionPane.showInputDialog(null,
