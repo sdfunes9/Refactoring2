@@ -9,9 +9,9 @@ public class PagoCuota implements Pagos{
         int numeroCuotas = 10;
         int idEstudiante = Integer.parseInt(JOptionPane.showInputDialog(null,
                 "Ingresa el id del estudiante que pagará su cuota\n"));
-        LogicaPagos(idEstudiante, numeroCuotas);
+        logicaPagos(idEstudiante, numeroCuotas);
             }
-    public int LogicaPagos(int idEstudiante, int numeroCuotas) {
+    public int logicaPagos(int idEstudiante, int numeroCuotas) {
         BdEstudiantes baseDatos = new BdEstudiantes();
         ArrayList<Estudiante> estudiantes = baseDatos.listarEstudiantes();
         int pagosProcesados = 0;

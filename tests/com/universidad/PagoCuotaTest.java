@@ -9,9 +9,9 @@ class PagoCuotaTest {
     @Test
     void logicaPagos() {
 
-        int idEstudiante = 6;
+        int idEstudiante = 7;
         int numeroCuotas = 10;
         PagoCuota pagocuota = new PagoCuota();
-        assertEquals(3, pagocuota.LogicaPagos(idEstudiante, numeroCuotas));
+        assertEquals(8, pagocuota.logicaPagos(idEstudiante, numeroCuotas));
     }
 }

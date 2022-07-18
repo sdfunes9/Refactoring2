@@ -11,9 +11,7 @@ public class Login {
     @Getter @Setter
     private boolean ingreso = false;
 
-
     public Login(){
-
     }
 
     public void loguear() {

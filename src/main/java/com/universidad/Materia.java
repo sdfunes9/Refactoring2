@@ -73,7 +73,6 @@ public class Materia {
     int nmateria;
     public void mostrarInfo() throws FileNotFoundException {
 
-        Maestro maestro = new Maestro();
         String[] respuesta= {"SI", "NO"};
         String respuesta1 = "";
         String ruta = JOptionPane.showInputDialog(null,"Escriba la ruta de la carpeta donde quiere guardar el archivo:","Menu materias", JOptionPane.PLAIN_MESSAGE);
@@ -84,7 +83,7 @@ public class Materia {
         File f = new File(dest);
         boolean exist = f.exists();
 
-        if (exist == true) {
+        if (exist) {
            respuesta1 = (String) JOptionPane.showInputDialog(null,
                     "Un archivo con ese nombre ya existe, ¿Desea sobrescribirlo?", "SI O NO",
                     JOptionPane.DEFAULT_OPTION, null, respuesta, respuesta[0]);
@@ -224,7 +223,6 @@ public class Materia {
             // #######################################################################################################
             // Preparamos el correo
             // #######################################################################################################
-            Scanner scanner = new Scanner(System.in);
             Email email = new Email();
 
             System.out.println("Ingrese su direccion de correo.");
