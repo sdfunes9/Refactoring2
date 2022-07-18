@@ -11,6 +11,8 @@ import com.universidad.utils.email.interfaces.EmailSender;
 import com.universidad.utils.email.library.SimpleEmailSender;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.IOException;
@@ -51,8 +53,11 @@ public class Materia {
 
     }
      public void mostrarmaterias(){
-        for (int i=0; i < BdMaterias.listarMaterias().size(); i++ ){
-            System.out.println("Indice: "+  (i) +  " Codigo: " + BdMaterias.listarMaterias().get(i).getIdMateria() + " " + "Materia: " + BdMaterias.listarMaterias().get(i).getNombreMateria());      }
+         String mats =  "Indice 0 " +BdMaterias.listarMaterias().get(0).nombreMateria +'\n' + "Indice 1: " + BdMaterias.listarMaterias().get(1).nombreMateria + '\n' + "Indice 2: " +BdMaterias.listarMaterias().get(2).nombreMateria +  '\n' + "Indice 3: " +BdMaterias.listarMaterias().get(3).nombreMateria +'\n' + "Indice 4: " +BdMaterias.listarMaterias().get(4).nombreMateria +'\n' + "Indice 5: " +BdMaterias.listarMaterias().get(5).nombreMateria +'\n' +"Indice 6: " +BdMaterias.listarMaterias().get(6).nombreMateria +'\n' + "Indice 7: " +BdMaterias.listarMaterias().get(7).nombreMateria;
+
+         JOptionPane.showMessageDialog(null, mats,
+                          "Empleado",JOptionPane.PLAIN_MESSAGE);
+
     }
 
     @Override
@@ -64,44 +69,39 @@ public class Materia {
                 " fechaInicio: " + fechaInicio + '\n' +
                 " fechaFin: " + fechaFin + '\n';
     }
-
     String dest;
     int nmateria;
-    Scanner entrada = new Scanner(System.in);
-    public  void mostrarInfo() throws FileNotFoundException {
-        Scanner entrada = new Scanner(System.in);
-        Maestro maestro = new Maestro();
+    public void mostrarInfo() throws FileNotFoundException {
 
-        System.out.println(" ");
-        String respuesta ="";
-        System.out.println("Escriba la ruta de la carpeta donde quiere guardar el archivo:");
-        String ruta = entrada.nextLine();
-        System.out.println("Escriba el nombre del pdf");
-        String filename = entrada.nextLine();
-        dest = ruta+ File.separator + filename + ".pdf";
+        Maestro maestro = new Maestro();
+        String[] respuesta= {"SI", "NO"};
+        String respuesta1 = "";
+        String ruta = JOptionPane.showInputDialog(null,"Escriba la ruta de la carpeta donde quiere guardar el archivo:","Menu materias", JOptionPane.PLAIN_MESSAGE);
+        String filename = JOptionPane.showInputDialog(null,"Escriba el nombre del pdf","Menu materia",JOptionPane.PLAIN_MESSAGE);
+        dest = ruta + File.separator + filename + ".pdf";
+
 
         File f = new File(dest);
         boolean exist = f.exists();
 
-        if(exist == true) {
-            System.out.println("Un archivo con este nombre ya existe ¿Quieres sobrescribir el archivo? si/no");
-              respuesta = entrada.nextLine();
-            if (respuesta.equals("si")) {
+        if (exist == true) {
+           respuesta1 = (String) JOptionPane.showInputDialog(null,
+                    "Un archivo con ese nombre ya existe, ¿Desea sobrescribirlo?", "SI O NO",
+                    JOptionPane.DEFAULT_OPTION, null, respuesta, respuesta[0]);
+            if (respuesta1.equals("SI")) {
                 creacionpdf();
-            }
-            else {
+
+            } else {
                 mostrarInfo();
-        }
-    }
-        else {
+            }
+        } else {
             creacionpdf();
         }
     }
         public void creacionpdf() throws FileNotFoundException {
 
-        System.out.println("Escriba el indice de la materia:");
-        nmateria = entrada.nextInt();
-
+        mostrarmaterias();
+        nmateria = Integer.parseInt(JOptionPane.showInputDialog(null,"Escriba el indice de la materia", "Menu Materia",JOptionPane.PLAIN_MESSAGE));
         Maestro maestro = new Maestro();
             //Crear pdf PdfWriter
             PdfWriter writer = new PdfWriter(dest);
@@ -175,17 +175,19 @@ public class Materia {
 
             documento.close();
 
-            System.out.println("Documento PDF creado");
+            JOptionPane.showMessageDialog(null,"Archivo PDF creado","PDF CREADO",JOptionPane.PLAIN_MESSAGE);
         }
 
         public void guardarEnviar() {
-            Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Desea enviar por correo o guardar en su computadora? (Ingrese 'enviar' o 'guardar')");
-            System.out.print("> ");
-            String respuesta = scanner.nextLine();
+            String [] opciones = {"Enviar", "Guardar"};
+            String opciones1 = "";
 
-            if (respuesta.compareTo("enviar") == 0) {
+            opciones1 = (String) JOptionPane.showInputDialog(null,
+                    "Desea enviar por correo o guardar en su computadora? (Ingrese 'enviar' o 'guardar')", "Guardar o Enviar",
+                    JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
+
+            if (opciones1.compareTo("Enviar") == 0) {
                 // #######################################################################################################
                 // Creamos el pdf
                 // #######################################################################################################
@@ -209,7 +211,7 @@ public class Materia {
                 String fileLocation = dest;
                 enviarPorCorreo(fileLocation);
 
-            } else if (respuesta.compareTo("guardar") == 0) {
+            } else if (opciones1.compareTo("Guardar") == 0) {
                 try {
                     mostrarInfo();
                 } catch (FileNotFoundException e) {
@@ -226,8 +228,9 @@ public class Materia {
             Email email = new Email();
 
             System.out.println("Ingrese su direccion de correo.");
-            System.out.print("> ");
-            String destinatario = scanner.nextLine();
+
+            String destinatario = JOptionPane.showInputDialog(null,"Ingrese su direccion de correo", "CORREO",JOptionPane.PLAIN_MESSAGE);
+
             email.addRecipient(destinatario);
 
             email.setSubject("Reporte de Datos de Materia");
@@ -241,6 +244,7 @@ public class Materia {
             EmailSender emailSender = SimpleEmailSender.getDefaultInstance();
             EmailService emailService = new EmailService(emailSender);
             emailService.sendEmail(email);
+            JOptionPane.showMessageDialog(null,"Se envio correctamente","Message",JOptionPane.PLAIN_MESSAGE);
         }
     }
 

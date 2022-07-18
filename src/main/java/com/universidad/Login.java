@@ -1,5 +1,4 @@
 package com.universidad;
-
 import lombok.Getter;
 import lombok.Setter;
 

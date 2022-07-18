@@ -50,9 +50,6 @@ public class Empleado extends Usuario {
                 "Cuenta Bancaria: " + cuentaBancaria + '\n' +
                 "Profesion: " + profesion + '\n';
     }
-
-    //Scanner entrada = new Scanner(System.in);
-
     @Setter
     @Getter
     private List<Empleado> empleadosList = new ArrayList<>();
@@ -75,7 +72,6 @@ public class Empleado extends Usuario {
         String regexNombreApellido = "^([a-zA-Z_]+[ ]?){1,2}$";
         String regexFechaNacimiento = "^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$";
 
-
         try {
             listSize = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Cantidad de empleados a registrar", "Registro de empleado", JOptionPane.PLAIN_MESSAGE));
@@ -97,7 +93,7 @@ public class Empleado extends Usuario {
                 } while (!((sexo.compareTo("FEMENINO") == 0) || (sexo.compareTo("MASCULINO") == 0)));
 
                 do {//VALIDACION PARAMETRO FECHA
-                    fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYY)");
+                    fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYYY)");
                 } while (!fechaNacimiento.matches(regexFechaNacimiento));
 
                 status = (String) JOptionPane.showInputDialog(null, "Status del empleado",
@@ -122,17 +118,15 @@ public class Empleado extends Usuario {
             JOptionPane.showMessageDialog(null, "Ingrese la informacion requerida");
         }
     }
-
     public List<Empleado> registrarUsuario(int id, String nombre, String apellido, String sexo, String fechaNacimiento,
                                            String status, double salario, String rol, String cuentaBancaria, String profesion) {
 
         Empleado empleadoNuevo = new Empleado(id, nombre, apellido, sexo, fechaNacimiento, status, salario, rol,
                 cuentaBancaria, profesion);
         empleadosList.add(empleadoNuevo);
-        System.out.println("Se registro correctamente");
+        JOptionPane.showMessageDialog(null,"Se registro correctamente","Message",JOptionPane.PLAIN_MESSAGE);
         return empleadosList;
 }
-
     @Override
     public ArrayList listarUsuario() {
         if (empleadosList.size() == 0) {
@@ -145,7 +139,6 @@ public class Empleado extends Usuario {
         }
         return (ArrayList) empleadosList;
     }
-
     @Override
     public void eliminarUsuario() {
         int indice;
@@ -159,7 +152,5 @@ public class Empleado extends Usuario {
                 JOptionPane.showMessageDialog(null,iterador.next());
             }
         }
-
     }
-
 }
