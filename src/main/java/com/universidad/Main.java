@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -21,21 +21,14 @@ public class Main {
         Login login1 = new Login();
 
         login1.loguear();
-
         do{
             if(login1.isIngreso()) {
-
                 JOptionPane.showMessageDialog(null, "Credenciales correctas");
-
             }else {
-
                 JOptionPane.showMessageDialog(null, "Credenciales incorrectas");
                 login1.loguear();
-
             }
-
         }while(!login1.isIngreso());
-
                 while (!salir) {
                     try {
                         opcion1 = Integer.parseInt(JOptionPane.showInputDialog(null,
