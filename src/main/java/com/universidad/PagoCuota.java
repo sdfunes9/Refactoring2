@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class PagoCuota implements Pagos{
     public void gestionarPagos() {
         int numeroCuotas = 10;
-        int idEstudiante = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresa el id del estudiante " +
-                "que pagará su cuota\n"));
+        int idEstudiante = Integer.parseInt(JOptionPane.showInputDialog(null,
+                "Ingresa el id del estudiante que pagará su cuota\n"));
         LogicaPagos(idEstudiante, numeroCuotas);
             }
     public int LogicaPagos(int idEstudiante, int numeroCuotas) {
@@ -31,7 +31,6 @@ public class PagoCuota implements Pagos{
                     pagosRestantes = numeroCuotas - pagoEnProceso;
                     JOptionPane.showMessageDialog(null,"Se proceso el pago numero " + pagoEnProceso +
                             ", quedan " + pagosRestantes + " pago(s) pendiente(s).\nGracias por procesar el pago.");
-
         }else {
            JOptionPane.showMessageDialog(null,"No se proceso ningun pago, vuelve a intentarlo o revisa " +
                    "tu numero de pagos");

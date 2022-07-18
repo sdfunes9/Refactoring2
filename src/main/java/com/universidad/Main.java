@@ -1,9 +1,6 @@
 package com.universidad;
 import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -39,34 +36,38 @@ public class Main {
         while (!salir) {
             try {
                 opcion1 = Integer.parseInt(JOptionPane.showInputDialog(null,
-                        "Seleccione una de las siguientes opciones\n"
-                                + "1. Registrar/Listar/Eliminar Empleado\n"
-                                + "2. Registrar/Listar/Eliminar/Pagar Estudiante\n"
-                                + "3. Listar Maestros\n"
-                                + "4. Generar reporte por materia\n"
-                                + "5. Registrar alumnos por materia y notas\n"
-                                + "6. Listar alumnos por materia y notas\n"
-                                + "7. Salir\n\n", "Menú Principal", JOptionPane.PLAIN_MESSAGE));
+                        """
+                                Seleccione una de las siguientes opciones
+                                1. Registrar/Listar/Eliminar Empleado
+                                2. Registrar/Listar/Eliminar/Pagar Estudiante
+                                3. Listar Maestros
+                                4. Generar reporte por materia
+                                5. Registrar alumnos por materia y notas
+                                6. Listar alumnos por materia y notas
+                                7. Salir""", "Menú Principal", JOptionPane.PLAIN_MESSAGE));
 
                 switch (opcion1) {
                     case 1 -> {
                         opcion2 = Integer.parseInt(JOptionPane.showInputDialog(null,
-                                "1. Registrar Empleado\n"
-                                        + "2. Listar Empleado\n"
-                                        + "3. Eliminar Empleado\n",
+                                """
+                                        1. Registrar Empleado
+                                        2. Listar Empleado
+                                        3. Eliminar Empleado""",
                                 "Menú empleados", JOptionPane.PLAIN_MESSAGE));
                         switch (opcion2) {
                             case 1 -> empleado1.capturarDatos();
                             case 2 -> empleado1.listarUsuario();
                             case 3 -> empleado1.eliminarUsuario();
+                            default -> JOptionPane.showMessageDialog(null, "Opción invalida");
                         }
                     }
                     case 2 -> {
                         opcion3 = Integer.parseInt(JOptionPane.showInputDialog(null,
-                                "1. Registrar Estudiante\n"
-                                        + "2. Listar Estudiante\n"
-                                        + "3. Eliminar Estudiante\n"
-                                        + "4. Procesar Pago de Cuota\n", "Menú Estudiantes",
+                                """
+                                         1. Registrar Estudiante
+                                         2. Listar Estudiante
+                                         3. Eliminar Estudiante
+                                         4. Procesar Pago de Cuota""", "Menú Estudiantes",
                                 JOptionPane.PLAIN_MESSAGE));
                         switch (opcion3) {
                             case 1 -> estudiante1.registrarUsuario();
@@ -80,6 +81,7 @@ public class Main {
                             }
                             case 3 -> estudiante1.eliminarUsuario();
                             case 4 -> pago1.gestionarPagos();
+                            default -> JOptionPane.showMessageDialog(null, "Opción invalida");
                         }
                     }
                     case 3 -> {
@@ -97,14 +99,8 @@ public class Main {
                     case 4 -> {
                         materia1.guardarEnviar();
                     }
-                    case 5 -> {
-                        System.out.println("Registrar notas de alumno");
-                        notas1.registrarNotasAlumnos();
-                    }
-                    case 6 -> {
-                        System.out.println("Listar alumnos por materia y notas");
-                        notas1.listarNotasAlumnos();
-                    }
+                    case 5 -> notas1.registrarNotasAlumnos();
+                    case 6 -> notas1.listarNotasAlumnos();
                     case 7 -> {
                         JOptionPane.showMessageDialog(null,"Saliendo del sistema","Saliendo",JOptionPane.PLAIN_MESSAGE);
                         salir = true;

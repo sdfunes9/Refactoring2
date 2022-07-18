@@ -56,7 +56,7 @@ public class Empleado extends Usuario {
 
     public void capturarDatos() {
         int id;
-        int listSize = empleadosList.size();
+        int listSize;
         String nombre;
         String apellido;
         String sexo;
@@ -86,11 +86,9 @@ public class Empleado extends Usuario {
                     apellido = JOptionPane.showInputDialog(null, "Apellido del empleado");
                 } while (!apellido.matches(regexNombreApellido));
 
-                do {//VALIDACION DE PARAMETRO SEXO
-                    sexo = (String) JOptionPane.showInputDialog(null,
-                            "Ingresar sexo del empleado", "FEMENINO O MASCULINO",
-                            JOptionPane.DEFAULT_OPTION, null, sexo1, sexo1[0]);
-                } while (!((sexo.compareTo("FEMENINO") == 0) || (sexo.compareTo("MASCULINO") == 0)));
+                sexo = (String) JOptionPane.showInputDialog(null,
+                        "Ingresar sexo del empleado", "FEMENINO O MASCULINO",
+                        JOptionPane.DEFAULT_OPTION, null, sexo1, sexo1[0]);
 
                 do {//VALIDACION PARAMETRO FECHA
                     fechaNacimiento = JOptionPane.showInputDialog(null, "Fecha de nacimiento (DD-MM-YYYY)");
@@ -143,7 +141,7 @@ public class Empleado extends Usuario {
     public void eliminarUsuario() {
         int indice;
         if (empleadosList.size() == 0) {
-            JOptionPane.showMessageDialog(null,"Lista vacia, imposible eliminar empleado");
+            JOptionPane.showMessageDialog(null,"Lista de empleados nuevos vacia, imposible eliminar empleado");
         } else {
             indice =Integer.parseInt(JOptionPane.showInputDialog(null,"Indique el ID del empleado a eliminar"));
             empleadosList.remove(indice - 1);

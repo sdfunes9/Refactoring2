@@ -33,11 +33,11 @@ public class Login {
         usuario.add(usuario5);
 
         String ingresarNombre = JOptionPane.showInputDialog(null, "Ingresar usuario");
-        String contrasenas = JOptionPane.showInputDialog(null, "ingresar contraseña");
+        String contrasenas = JOptionPane.showInputDialog(null, "Ingresar contraseña");
 
         for (CuentasUsuarios cuentasUsuarios : usuario) {
             if (ingresarNombre.equals(cuentasUsuarios.getUsername()) && contrasenas.equals(cuentasUsuarios.getContrasena())) {
-                JOptionPane.showMessageDialog(null, "Bienvenido/a:" + " " + cuentasUsuarios.getUsername());
+                JOptionPane.showMessageDialog(null, "Bienvenido/a: " + " " + cuentasUsuarios.getUsername());
                 setIngreso(true);
             }
         }
